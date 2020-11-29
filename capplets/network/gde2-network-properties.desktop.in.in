@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Network Proxy
+_Comment=Set your network proxy preferences
+Exec=gde2-network-properties
+Icon=gde2-network-properties
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;X-GDE2-NetworkSettings;
+Keywords=gde2-control-center;GDE2;network;http;socks;proxy;
+OnlyShowIn=GDE2;

@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Mouse
+_Comment=Set your mouse preferences
+Exec=gde2-mouse-properties
+Icon=input-mouse
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;HardwareSettings;
+Keywords=gde2-control-center;GDE2;mouse;preferences;
+OnlyShowIn=GDE2;

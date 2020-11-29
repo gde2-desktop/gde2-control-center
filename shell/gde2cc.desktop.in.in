@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Control Center
+_GenericName=The GDE2 configuration tool
+Icon=preferences-desktop
+Exec=gde2-control-center
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;
+Keywords=GDE2;control;center;configuration;tool;destop;preferences;
+OnlyShowIn=GDE2;

@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Appearance
+_Comment=Customize the look of the desktop
+Exec=gde2-appearance-properties %F
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;DesktopSettings;
+Keywords=gde2-control-center;GDE2;appearance;properties;desktop;customize;look;
+OnlyShowIn=GDE2;

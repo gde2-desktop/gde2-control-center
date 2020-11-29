@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: gde2-slab
+Description: Beautiful App Slab
+Requires: glib-2.0 gobject-2.0 gio-2.0 gtk+-@GTK_API_VERSION@ gde2-desktop-2.0 libgde2-menu
+Requires.private: gdk-@GTK_API_VERSION@ librsvg-2.0
+Version: @VERSION@
+Libs: -L${libdir} -lgde2-slab
+Cflags: -I${includedir}/libgde2-slab

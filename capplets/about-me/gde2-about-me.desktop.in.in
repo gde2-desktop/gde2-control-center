@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=About Me
+_Comment=Set your personal information
+Exec=gde2-about-me
+Icon=user-info
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;X-GDE2-PersonalSettings;
+Keywords=gde2-control-center;GDE2;personal;information;
+OnlyShowIn=GDE2;

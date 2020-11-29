@@ -1,0 +1,108 @@
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+
+<!ENTITY VERSION "1.10.1">
+<!ENTITY app "<application>GDE2 Control Center</application>">
+]>
+
+<article id="index" lang="en">
+  
+  <articleinfo>
+    <abstract role="description">
+      <para>
+        The GDE2 Control Center provides a central place for the user to setup their GDE2 experience. It can let you configure anything from the behavior of your window borders to the default font type.
+      </para>
+    </abstract>
+    <title>Control Center</title>
+    <authorgroup>
+      <author>
+	  <firstname>GDE2 Documentation Project</firstname>
+	  <surname></surname>
+	  <affiliation>
+		 <orgname>GDE2 Desktop</orgname>
+	  </affiliation>
+      </author>
+      <author>
+	<firstname>Kevin</firstname><surname>Breit</surname>
+      </author>
+    </authorgroup>
+    <copyright>
+      <year>2015</year>
+      <holder>GDE2 Documentation Project</holder>
+    </copyright>
+    <copyright>
+      <year>2001, 2002</year>
+      <holder>Ximian, Inc.</holder>
+    </copyright>
+
+    <publisher role="maintainer">
+      <publishername>GDE2 Documentation Project</publishername>
+    </publisher>
+    <publisher>
+      <publishername>GNOME Documentation Project</publishername>
+    </publisher>
+    
+    <revhistory>
+      <revision> 
+        <revnumber>2.15</revnumber>
+        <date>July 2015</date>
+          <firstname>GDE2 Documentation Project</firstname>
+          <surname></surname>
+      </revision>
+      <revision>
+        <revnumber>2.14</revnumber> 
+        <date>2006-03</date> 
+      </revision> 
+    </revhistory>
+
+    <legalnotice id="legalnotice">
+      <para>
+	Permission is granted to copy, distribute and/or modify this document
+        under the terms of the
+        <ulink type="help" url="help:fdl">
+          <citetitle>
+            GNU Free Documentation License
+          </citetitle>
+        </ulink>, Version 1.1 or any later version
+        published by the Free Software Foundation with no Invariant Sections,
+        no Front-Cover Texts, and no Back-Cover Texts.  A copy of the license
+        can be found <ulink type="help" url="help:fdl">here</ulink>.
+      </para>
+      <para>
+        Many of the names used by companies to distinguish their products and
+        services are claimed as trademarks. Where those names appear in any
+        GDE2 documentation, and those trademarks are made aware to the members
+        of the GDE2 Documentation Project, the names have been printed in caps
+        or initial caps.
+      </para>
+      <para>
+        To report a bug or make a suggestion regarding the &app; application or this manual, follow the directions in the <ulink url="help:gde2-user-guide/feedback" type="help">GDE2 Feedback Page</ulink>.
+      </para>
+    </legalnotice>
+
+    <releaseinfo>
+      This manual describes version &VERSION; of the GDE2 Control Center.
+    </releaseinfo>
+  </articleinfo>
+  
+  <sect1 id="intro">
+    <title>Introduction</title>
+    <para>
+      The <application>GDE2 Control Center</application> provides a single window from which to launch all preference tools. 
+    </para>
+    <para>
+      To launch the <application>GDE2 Control Center</application>,
+      type <command>gde2-control-center</command> in a terminal window. 
+    </para>
+    <para>For help on using preference tools, see the <ulink type="help" url="help:gde2-user-guide/prefs">User Guide</ulink>.</para>
+  </sect1>
+  
+  <sect1 id="gde2cc-interface">
+    <title>Usage</title>
+    <para>
+      The <application>GDE2 Control Center</application> shows icons for all preference tools installed on your system in a window. Select a preference tool to see its description in the status bar.</para>
+    <para>
+      To open a preference tool, double-click on its icon.
+    </para>
+  </sect1>
+</article>

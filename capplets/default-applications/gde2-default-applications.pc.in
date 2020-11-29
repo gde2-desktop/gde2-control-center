@@ -1,0 +1,10 @@
+prefix=@prefix@
+datarootdir=@datarootdir@
+datadir=@datadir@
+pkgdatadir=${datadir}/@PACKAGE@
+defappsdir=${pkgdatadir}/default-apps
+
+Name: gde2-default-applications
+Description: Default GDE2 applications configuration
+Version: @VERSION@
+

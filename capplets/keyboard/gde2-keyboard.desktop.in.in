@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Keyboard
+_Comment=Set your keyboard preferences
+Exec=gde2-keyboard-properties
+Icon=preferences-desktop-keyboard
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;HardwareSettings;
+Keywords=gde2-control-center;GDE2;keyboard;preferences;
+OnlyShowIn=GDE2;

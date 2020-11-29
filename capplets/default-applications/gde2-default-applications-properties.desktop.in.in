@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Preferred Applications
+_Comment=Select your default applications
+Exec=gde2-default-applications-properties
+Icon=preferences-desktop-default-applications
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Settings;X-GDE2-PersonalSettings;
+Keywords=gde2-control-center;GDE2;default;preferred;applications;
+OnlyShowIn=GDE2;
