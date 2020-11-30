@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
 
-/* marco-window-manager.c
+/* finestra-window-manager.c
  * Copyright (C) 2002 Seth Nickell
  * Copyright (C) 2002 Red Hat, Inc.
  *
@@ -30,22 +30,22 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#include "marco-window-manager.h"
+#include "finestra-window-manager.h"
 
-#define MARCO_SCHEMA "org.gde2.Marco.general"
-#define MARCO_THEME_KEY "theme"
-#define MARCO_FONT_KEY  "titlebar-font"
-#define MARCO_FOCUS_KEY "focus-mode"
-#define MARCO_USE_SYSTEM_FONT_KEY "titlebar-uses-system-font"
-#define MARCO_AUTORAISE_KEY "auto-raise"
-#define MARCO_AUTORAISE_DELAY_KEY "auto-raise-delay"
-#define MARCO_MOUSE_MODIFIER_KEY "mouse-button-modifier"
-#define MARCO_DOUBLE_CLICK_TITLEBAR_KEY "action-double-click-titlebar"
-#define MARCO_COMPOSITING_MANAGER_KEY "compositing-manager"
-#define MARCO_COMPOSITING_FAST_ALT_TAB_KEY "compositing-fast-alt-tab"
+#define FINESTRA_SCHEMA "org.gde2.Finestra.general"
+#define FINESTRA_THEME_KEY "theme"
+#define FINESTRA_FONT_KEY  "titlebar-font"
+#define FINESTRA_FOCUS_KEY "focus-mode"
+#define FINESTRA_USE_SYSTEM_FONT_KEY "titlebar-uses-system-font"
+#define FINESTRA_AUTORAISE_KEY "auto-raise"
+#define FINESTRA_AUTORAISE_DELAY_KEY "auto-raise-delay"
+#define FINESTRA_MOUSE_MODIFIER_KEY "mouse-button-modifier"
+#define FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY "action-double-click-titlebar"
+#define FINESTRA_COMPOSITING_MANAGER_KEY "compositing-manager"
+#define FINESTRA_COMPOSITING_FAST_ALT_TAB_KEY "compositing-fast-alt-tab"
 
 
-/* keep following enums in sync with marco */
+/* keep following enums in sync with finestra */
 enum
 {
         ACTION_TITLEBAR_TOGGLE_SHADE,
@@ -66,7 +66,7 @@ enum
 
 static Gde2WindowManagerClass *parent_class;
 
-struct _MarcoWindowManagerPrivate {
+struct _FinestraWindowManagerPrivate {
         GSettings *settings;
         char *font;
         char *theme;
@@ -78,9 +78,9 @@ value_changed (GSettings *settings,
                gchar     *key,
                void      *data)
 {
-        MarcoWindowManager *meta_wm;
+        FinestraWindowManager *meta_wm;
 
-        meta_wm = MARCO_WINDOW_MANAGER (data);
+        meta_wm = FINESTRA_WINDOW_MANAGER (data);
 
         gde2_window_manager_settings_changed (GDE2_WINDOW_MANAGER (meta_wm));
 }
@@ -92,11 +92,11 @@ window_manager_new (int expected_interface_version)
         GObject *wm;
 
         if (expected_interface_version != GDE2_WINDOW_MANAGER_INTERFACE_VERSION) {
-                g_warning ("Marco window manager module wasn't compiled with the current version of gde2-control-center");
+                g_warning ("Finestra window manager module wasn't compiled with the current version of gde2-control-center");
                 return NULL;
         }
   
-        wm = g_object_new (marco_window_manager_get_type (), NULL);
+        wm = g_object_new (finestra_window_manager_get_type (), NULL);
 
         return wm;
 }
@@ -160,14 +160,14 @@ add_themes_from_dir (GList *current_list, const char *path)
 }
 
 static GList *  
-marco_get_theme_list (Gde2WindowManager *wm)
+finestra_get_theme_list (Gde2WindowManager *wm)
 {
         GList *themes = NULL;
         char *home_dir_themes;
 
         home_dir_themes = g_build_filename (g_get_home_dir (), ".themes", NULL);
 
-        themes = add_themes_from_dir (themes, MARCO_THEME_DIR);
+        themes = add_themes_from_dir (themes, FINESTRA_THEME_DIR);
         themes = add_themes_from_dir (themes, "/usr/share/themes");
         themes = add_themes_from_dir (themes, home_dir_themes);
 
@@ -177,48 +177,48 @@ marco_get_theme_list (Gde2WindowManager *wm)
 }
 
 static char *
-marco_get_user_theme_folder (Gde2WindowManager *wm)
+finestra_get_user_theme_folder (Gde2WindowManager *wm)
 {
         return g_build_filename (g_get_home_dir (), ".themes", NULL);
 }
 
 static void
-marco_change_settings (Gde2WindowManager    *wm,
+finestra_change_settings (Gde2WindowManager    *wm,
                           const Gde2WMSettings *settings)
 {
-        MarcoWindowManager *meta_wm;
+        FinestraWindowManager *meta_wm;
 
-        meta_wm = MARCO_WINDOW_MANAGER (wm);
+        meta_wm = FINESTRA_WINDOW_MANAGER (wm);
 
         if (settings->flags & GDE2_WM_SETTING_COMPOSITING_MANAGER)
                 g_settings_set_boolean (meta_wm->p->settings,
-                                        MARCO_COMPOSITING_MANAGER_KEY,
+                                        FINESTRA_COMPOSITING_MANAGER_KEY,
                                         settings->compositing_manager);
 
         if (settings->flags & GDE2_WM_SETTING_COMPOSITING_ALTTAB)
                 g_settings_set_boolean (meta_wm->p->settings,
-                                        MARCO_COMPOSITING_FAST_ALT_TAB_KEY,
+                                        FINESTRA_COMPOSITING_FAST_ALT_TAB_KEY,
                                         settings->compositing_fast_alt_tab);
 
         if (settings->flags & GDE2_WM_SETTING_MOUSE_FOCUS)
                 g_settings_set_enum (meta_wm->p->settings,
-                                     MARCO_FOCUS_KEY,
+                                     FINESTRA_FOCUS_KEY,
                                      settings->focus_follows_mouse ?
                                      FOCUS_MODE_SLOPPY : FOCUS_MODE_CLICK);
 
         if (settings->flags & GDE2_WM_SETTING_AUTORAISE)
                 g_settings_set_boolean (meta_wm->p->settings,
-                                        MARCO_AUTORAISE_KEY,
+                                        FINESTRA_AUTORAISE_KEY,
                                         settings->autoraise);
         
         if (settings->flags & GDE2_WM_SETTING_AUTORAISE_DELAY)
                 g_settings_set_int (meta_wm->p->settings,
-                                    MARCO_AUTORAISE_DELAY_KEY,
+                                    FINESTRA_AUTORAISE_DELAY_KEY,
                                     settings->autoraise_delay);
 
         if (settings->flags & GDE2_WM_SETTING_FONT) {
                 g_settings_set_string (meta_wm->p->settings,
-                                       MARCO_FONT_KEY,
+                                       FINESTRA_FONT_KEY,
                                        settings->font);
         }
         
@@ -227,55 +227,55 @@ marco_change_settings (Gde2WindowManager    *wm,
 
                 value = g_strdup_printf ("<%s>", settings->mouse_move_modifier);
                 g_settings_set_string (meta_wm->p->settings,
-                                       MARCO_MOUSE_MODIFIER_KEY,
+                                       FINESTRA_MOUSE_MODIFIER_KEY,
                                        value);
                 g_free (value);
         }
 
         if (settings->flags & GDE2_WM_SETTING_THEME) {
                 g_settings_set_string (meta_wm->p->settings,
-                                       MARCO_THEME_KEY,
+                                       FINESTRA_THEME_KEY,
                                        settings->theme);
         }
 
         if (settings->flags & GDE2_WM_SETTING_DOUBLE_CLICK_ACTION) {
                 g_settings_set_enum (meta_wm->p->settings,
-                                     MARCO_DOUBLE_CLICK_TITLEBAR_KEY,
+                                     FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY,
                                      settings->double_click_action);
         }
 }
 
 static void
-marco_get_settings (Gde2WindowManager *wm,
+finestra_get_settings (Gde2WindowManager *wm,
                        Gde2WMSettings    *settings)
 {
         int to_get;
-        MarcoWindowManager *meta_wm;
+        FinestraWindowManager *meta_wm;
 
-        meta_wm = MARCO_WINDOW_MANAGER (wm);
+        meta_wm = FINESTRA_WINDOW_MANAGER (wm);
         
         to_get = settings->flags;
         settings->flags = 0;
         
         if (to_get & GDE2_WM_SETTING_COMPOSITING_MANAGER) {
                 settings->compositing_manager = g_settings_get_boolean (meta_wm->p->settings,
-                                                                        MARCO_COMPOSITING_MANAGER_KEY);
+                                                                        FINESTRA_COMPOSITING_MANAGER_KEY);
                 settings->flags |= GDE2_WM_SETTING_COMPOSITING_MANAGER;
         }
         
         if (to_get & GDE2_WM_SETTING_COMPOSITING_ALTTAB) {
                 settings->compositing_fast_alt_tab = g_settings_get_boolean (meta_wm->p->settings,
-                                                                             MARCO_COMPOSITING_FAST_ALT_TAB_KEY);
+                                                                             FINESTRA_COMPOSITING_FAST_ALT_TAB_KEY);
                 settings->flags |= GDE2_WM_SETTING_COMPOSITING_ALTTAB;
         }
         
         if (to_get & GDE2_WM_SETTING_MOUSE_FOCUS) {
-                gint marco_focus_value;
+                gint finestra_focus_value;
 
-                marco_focus_value = g_settings_get_enum (meta_wm->p->settings,
-                                                         MARCO_FOCUS_KEY);
+                finestra_focus_value = g_settings_get_enum (meta_wm->p->settings,
+                                                         FINESTRA_FOCUS_KEY);
                 settings->focus_follows_mouse = FALSE;
-                if (marco_focus_value == FOCUS_MODE_SLOPPY || marco_focus_value == FOCUS_MODE_MOUSE)
+                if (finestra_focus_value == FOCUS_MODE_SLOPPY || finestra_focus_value == FOCUS_MODE_MOUSE)
                         settings->focus_follows_mouse = TRUE;
 
                 settings->flags |= GDE2_WM_SETTING_MOUSE_FOCUS;
@@ -283,14 +283,14 @@ marco_get_settings (Gde2WindowManager *wm,
         
         if (to_get & GDE2_WM_SETTING_AUTORAISE) {
                 settings->autoraise = g_settings_get_boolean (meta_wm->p->settings,
-                                                              MARCO_AUTORAISE_KEY);
+                                                              FINESTRA_AUTORAISE_KEY);
                 settings->flags |= GDE2_WM_SETTING_AUTORAISE;
         }
         
         if (to_get & GDE2_WM_SETTING_AUTORAISE_DELAY) {
                 settings->autoraise_delay =
                         g_settings_get_int (meta_wm->p->settings,
-                                            MARCO_AUTORAISE_DELAY_KEY);
+                                            FINESTRA_AUTORAISE_DELAY_KEY);
                 settings->flags |= GDE2_WM_SETTING_AUTORAISE_DELAY;
         }
 
@@ -298,7 +298,7 @@ marco_get_settings (Gde2WindowManager *wm,
                 char *str;
 
                 str = g_settings_get_string (meta_wm->p->settings,
-                                             MARCO_FONT_KEY);
+                                             FINESTRA_FONT_KEY);
 
                 if (str == NULL)
                         str = g_strdup ("Sans Bold 12");
@@ -321,7 +321,7 @@ marco_get_settings (Gde2WindowManager *wm,
                 const char *new;
 
                 str = g_settings_get_string (meta_wm->p->settings,
-                                             MARCO_MOUSE_MODIFIER_KEY);
+                                             FINESTRA_MOUSE_MODIFIER_KEY);
 
                 if (str == NULL)
                         str = g_strdup ("<Super>");
@@ -358,7 +358,7 @@ marco_get_settings (Gde2WindowManager *wm,
                 char *str;
 
                 str = g_settings_get_string (meta_wm->p->settings,
-                                             MARCO_THEME_KEY);
+                                             FINESTRA_THEME_KEY);
 
                 if (str == NULL)
                         str = g_strdup ("Spidey");
@@ -373,20 +373,20 @@ marco_get_settings (Gde2WindowManager *wm,
         if (to_get & GDE2_WM_SETTING_DOUBLE_CLICK_ACTION) {
                 settings->double_click_action =
                         g_settings_get_enum (meta_wm->p->settings,
-                                             MARCO_DOUBLE_CLICK_TITLEBAR_KEY);
+                                             FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY);
                 
                 settings->flags |= GDE2_WM_SETTING_DOUBLE_CLICK_ACTION;
         }
 }
 
 static int
-marco_get_settings_mask (Gde2WindowManager *wm)
+finestra_get_settings_mask (Gde2WindowManager *wm)
 {
         return GDE2_WM_SETTING_MASK;
 }
 
 static void
-marco_get_double_click_actions (Gde2WindowManager              *wm,
+finestra_get_double_click_actions (Gde2WindowManager              *wm,
                                    const Gde2WMDoubleClickAction **actions_p,
                                    int                             *n_actions_p)
 {
@@ -416,39 +416,39 @@ marco_get_double_click_actions (Gde2WindowManager              *wm,
 }
 
 static void
-marco_window_manager_init (MarcoWindowManager *marco_window_manager,
-                              MarcoWindowManagerClass *class)
+finestra_window_manager_init (FinestraWindowManager *finestra_window_manager,
+                              FinestraWindowManagerClass *class)
 {
-        marco_window_manager->p = g_new0 (MarcoWindowManagerPrivate, 1);
-        marco_window_manager->p->settings = g_settings_new (MARCO_SCHEMA);
-        marco_window_manager->p->font = NULL;
-        marco_window_manager->p->theme = NULL;
-        marco_window_manager->p->mouse_modifier = NULL;
+        finestra_window_manager->p = g_new0 (FinestraWindowManagerPrivate, 1);
+        finestra_window_manager->p->settings = g_settings_new (FINESTRA_SCHEMA);
+        finestra_window_manager->p->font = NULL;
+        finestra_window_manager->p->theme = NULL;
+        finestra_window_manager->p->mouse_modifier = NULL;
 
-        g_signal_connect (marco_window_manager->p->settings,
+        g_signal_connect (finestra_window_manager->p->settings,
                           "changed",
-                          G_CALLBACK (value_changed), marco_window_manager);
+                          G_CALLBACK (value_changed), finestra_window_manager);
 }
 
 static void
-marco_window_manager_finalize (GObject *object) 
+finestra_window_manager_finalize (GObject *object) 
 {
-        MarcoWindowManager *marco_window_manager;
+        FinestraWindowManager *finestra_window_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (IS_MARCO_WINDOW_MANAGER (object));
+        g_return_if_fail (IS_FINESTRA_WINDOW_MANAGER (object));
 
-        marco_window_manager = MARCO_WINDOW_MANAGER (object);
+        finestra_window_manager = FINESTRA_WINDOW_MANAGER (object);
 
-        g_object_unref (marco_window_manager->p->settings);
-        g_free (marco_window_manager->p);
+        g_object_unref (finestra_window_manager->p->settings);
+        g_free (finestra_window_manager->p);
 
         G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 
 static void
-marco_window_manager_class_init (MarcoWindowManagerClass *class) 
+finestra_window_manager_class_init (FinestraWindowManagerClass *class) 
 {
         GObjectClass *object_class;
         Gde2WindowManagerClass *wm_class;
@@ -456,44 +456,44 @@ marco_window_manager_class_init (MarcoWindowManagerClass *class)
         object_class = G_OBJECT_CLASS (class);
         wm_class = GDE2_WINDOW_MANAGER_CLASS (class);
 
-        object_class->finalize = marco_window_manager_finalize;
+        object_class->finalize = finestra_window_manager_finalize;
 
-        wm_class->change_settings          = marco_change_settings;
-        wm_class->get_settings             = marco_get_settings;
-        wm_class->get_settings_mask        = marco_get_settings_mask;
-        wm_class->get_user_theme_folder    = marco_get_user_theme_folder;
-        wm_class->get_theme_list           = marco_get_theme_list;
-        wm_class->get_double_click_actions = marco_get_double_click_actions;
+        wm_class->change_settings          = finestra_change_settings;
+        wm_class->get_settings             = finestra_get_settings;
+        wm_class->get_settings_mask        = finestra_get_settings_mask;
+        wm_class->get_user_theme_folder    = finestra_get_user_theme_folder;
+        wm_class->get_theme_list           = finestra_get_theme_list;
+        wm_class->get_double_click_actions = finestra_get_double_click_actions;
         
         parent_class = g_type_class_peek_parent (class);
 }
 
 GType
-marco_window_manager_get_type (void)
+finestra_window_manager_get_type (void)
 {
-        static GType marco_window_manager_type = 0;
+        static GType finestra_window_manager_type = 0;
 
-        if (!marco_window_manager_type) {
-                static GTypeInfo marco_window_manager_info = {
-                        sizeof (MarcoWindowManagerClass),
+        if (!finestra_window_manager_type) {
+                static GTypeInfo finestra_window_manager_info = {
+                        sizeof (FinestraWindowManagerClass),
                         NULL, /* GBaseInitFunc */
                         NULL, /* GBaseFinalizeFunc */
-                        (GClassInitFunc) marco_window_manager_class_init,
+                        (GClassInitFunc) finestra_window_manager_class_init,
                         NULL, /* GClassFinalizeFunc */
                         NULL, /* user-supplied data */
-                        sizeof (MarcoWindowManager),
+                        sizeof (FinestraWindowManager),
                         0, /* n_preallocs */
-                        (GInstanceInitFunc) marco_window_manager_init,
+                        (GInstanceInitFunc) finestra_window_manager_init,
                         NULL
                 };
 
-                marco_window_manager_type = 
+                finestra_window_manager_type = 
                         g_type_register_static (gde2_window_manager_get_type (), 
-                                                "MarcoWindowManager",
-                                                &marco_window_manager_info, 0);
+                                                "FinestraWindowManager",
+                                                &finestra_window_manager_info, 0);
         }
 
-        return marco_window_manager_type;
+        return finestra_window_manager_type;
 }
 
 

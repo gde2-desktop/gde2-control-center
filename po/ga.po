@@ -2526,32 +2526,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "Chun fuinneog a bhogadh, brúigh-agus-coinnigh an eochair seo agus ansin gabh an fhuinneog:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "Roll suas"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "Uasmhéadaigh"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "Uasmhéadaigh go Cothrománach"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "Uasmhéadaigh go hIngearach"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "Íoslaghdaigh"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "Neamhní"
 

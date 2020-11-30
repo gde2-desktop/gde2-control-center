@@ -2530,32 +2530,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "За преместување на прозорец, стиснете и држете го ова копче и фатете го прозорецот:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "Собери нагоре"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "Максимизирај"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "Максимизирај хоризонтално"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "Максимизирај вертикално"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "Минимизирај"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "Ништо"
 

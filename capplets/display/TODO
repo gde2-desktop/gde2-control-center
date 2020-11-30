@@ -69,8 +69,8 @@ Here is the OS X Display menu:
 	- Would probably be worthwhile to drop libgde2/libgde2ui from
 	  the craplets.
 
-- Marco work:
-	- Marco is already Xinerama aware, but it needs to update itself
+- Finestra work:
+	- Finestra is already Xinerama aware, but it needs to update itself
 	  when monitors come and go.
 
 - GDE2 panel work:
@@ -92,7 +92,7 @@ Here is the OS X Display menu:
   is at best a nice-to-have, and low priority in my opinion.
 
 
-*******************  Marco
+*******************  Finestra
 
 Havoc:
 
@@ -125,7 +125,7 @@ Havoc:
 > setting for this, it should be desktop-global and in this monitor
 > config dialog.
 
-> It should not be a marco or Compiz option, but in some way an X
+> It should not be a finestra or Compiz option, but in some way an X
 > option in short. The implementation could be either an X server
 > feature or an EWMH hint or whatever, but it should be controlled by
 > the monitor config dialog and used by apps, GTK, etc. in addition to

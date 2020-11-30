@@ -2523,32 +2523,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "पटल हलविण्याकरीता, ही कळ दाबा-व-पकडून ठेवा व त्यानंतर पटल ओढा:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "वर गुंडाळणे"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "मोठी करा"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "आडवेरित्या मोठे करा"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "उभ्यारित्या मोठे करा"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "लहान करा"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "काहीच नाही"
 

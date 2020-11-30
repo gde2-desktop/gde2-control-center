@@ -57,8 +57,8 @@
 #define CAJA_SCHEMA                  "org.gde2.caja.desktop"
 #define DESKTOP_FONT_KEY             "font"
 
-#define MARCO_SCHEMA                 "org.gde2.Marco.general"
-#define MARCO_THEME_KEY              "theme"
+#define FINESTRA_SCHEMA                 "org.gde2.Finestra.general"
+#define FINESTRA_THEME_KEY              "theme"
 #define WINDOW_TITLE_FONT_KEY        "titlebar-font"
 #define WINDOW_TITLE_USES_SYSTEM_KEY "titlebar-uses-system-font"
 
@@ -80,7 +80,7 @@ typedef struct {
 	GSettings* wp_settings;
 	GSettings* caja_settings;
 	GSettings* interface_settings;
-	GSettings* marco_settings;
+	GSettings* finestra_settings;
 	GSettings* mouse_settings;
 	GSettings* font_settings;
 	GtkBuilder* ui;

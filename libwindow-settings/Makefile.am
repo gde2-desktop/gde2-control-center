@@ -8,7 +8,7 @@ AM_CPPFLAGS = 								\
 	-DGDE2_WINDOW_MANAGER_MODULE_PATH=\""$(WM_MODULE_DIR)"\"	\
 	-I$(top_srcdir)/						\
 	@CAPPLET_CFLAGS@						\
-	-DMARCO_THEME_DIR=\""$(datadir)/themes"\"
+	-DFINESTRA_THEME_DIR=\""$(datadir)/themes"\"
 
 lib_LTLIBRARIES = libgde2-window-settings.la
 
@@ -41,14 +41,14 @@ wms_flags = -export_dynamic -avoid-version -module
 wmsdir = $(WM_MODULE_DIR)
 
 wms_LTLIBRARIES =			\
-	libmarco.la
+	libfinestra.la
 
-libmarco_la_SOURCES = 		\
-	marco-window-manager.c	\
-	marco-window-manager.h
+libfinestra_la_SOURCES = 		\
+	finestra-window-manager.c	\
+	finestra-window-manager.h
 
-libmarco_la_LDFLAGS = $(wms_flags)
-libmarco_la_LIBADD = 		\
+libfinestra_la_LDFLAGS = $(wms_flags)
+libfinestra_la_LIBADD = 		\
 	$(GDE2CC_LIBS)			\
 	libgde2-window-settings.la
 

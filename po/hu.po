@@ -2534,32 +2534,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "Ablak áthelyezéséhez tartsa lenyomva ezt a billentyűt és húzza el az ablakot:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "Felgördítés"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "Maximalizálás"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "Vízszintes maximalizálás"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "Függőleges maximalizálás"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "Minimalizálás"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "Nincs"
 

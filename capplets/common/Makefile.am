@@ -12,7 +12,7 @@ AM_CPPFLAGS = \
 	$(CAPPLET_CFLAGS)						\
 	$(DBUS_CFLAGS)							\
 	$(GDE2_DESKTOP_CFLAGS)						\
-	$(MARCO_CFLAGS)						\
+	$(FINESTRA_CFLAGS)						\
 	$(GSD_DBUS_CFLAGS)						\
 	$(GIO_CFLAGS)						\
 	$(DCONF_CFLAGS)
@@ -44,7 +44,7 @@ libcommon_la_SOURCES = \
 
 libcommon_la_LIBADD =							\
 	$(top_builddir)/libwindow-settings/libgde2-window-settings.la  \
-	$(MARCO_LIBS)						\
+	$(FINESTRA_LIBS)						\
 	$(DBUS_LIBS)							\
 	$(GDE2_DESKTOP_LIBS)						\
 	$(GIO_LIBS)									\

@@ -790,7 +790,7 @@ gtk_theme_thumbnail_cb (GdkPixbuf *pixbuf,
 }
 
 static void
-marco_theme_thumbnail_cb (GdkPixbuf *pixbuf,
+finestra_theme_thumbnail_cb (GdkPixbuf *pixbuf,
                              gchar *theme_name,
                              AppearanceData *data)
 {
@@ -825,9 +825,9 @@ create_thumbnail (const gchar *name, GdkPixbuf *default_thumb, AppearanceData *d
   } else if (default_thumb == data->window_theme_icon) {
     Gde2ThemeInfo *info;
     info = gde2_theme_info_find (name);
-    if (info != NULL && info->has_marco) {
-      generate_marco_theme_thumbnail_async (info,
-          (ThemeThumbnailFunc) marco_theme_thumbnail_cb, data, NULL);
+    if (info != NULL && info->has_finestra) {
+      generate_finestra_theme_thumbnail_async (info,
+          (ThemeThumbnailFunc) finestra_theme_thumbnail_cb, data, NULL);
     }
   }
 }
@@ -844,7 +844,7 @@ changed_on_disk_cb (Gde2ThemeCommonInfo *theme,
     if (change_type == GDE2_THEME_CHANGE_DELETED) {
       if (element_type & GDE2_THEME_GTK_2)
         remove_from_treeview ("gtk_themes_list", info->name, data);
-      if (element_type & GDE2_THEME_MARCO)
+      if (element_type & GDE2_THEME_FINESTRA)
         remove_from_treeview ("window_themes_list", info->name, data);
 
     } else {
@@ -858,14 +858,14 @@ changed_on_disk_cb (Gde2ThemeCommonInfo *theme,
             (ThemeThumbnailFunc) gtk_theme_thumbnail_cb, data, NULL);
       }
 
-      if (element_type & GDE2_THEME_MARCO) {
+      if (element_type & GDE2_THEME_FINESTRA) {
         if (change_type == GDE2_THEME_CHANGE_CREATED)
           add_to_treeview ("window_themes_list", info->name, info->name, data->window_theme_icon, data);
         else if (change_type == GDE2_THEME_CHANGE_CHANGED)
           update_in_treeview ("window_themes_list", info->name, info->name, data);
 
-        generate_marco_theme_thumbnail_async (info,
-            (ThemeThumbnailFunc) marco_theme_thumbnail_cb, data, NULL);
+        generate_finestra_theme_thumbnail_async (info,
+            (ThemeThumbnailFunc) finestra_theme_thumbnail_cb, data, NULL);
       }
     }
 
@@ -925,12 +925,12 @@ prepare_list (AppearanceData *data, GtkWidget *list, ThemeType type, GCallback c
       break;
 
     case THEME_TYPE_WINDOW:
-      themes = gde2_theme_info_find_by_type (GDE2_THEME_MARCO);
+      themes = gde2_theme_info_find_by_type (GDE2_THEME_FINESTRA);
       thumbnail = data->window_theme_icon;
-      settings = data->marco_settings;
-      key = MARCO_THEME_KEY;
-      generator = (ThumbnailGenFunc) generate_marco_theme_thumbnail_async;
-      thumb_cb = (ThemeThumbnailFunc) marco_theme_thumbnail_cb;
+      settings = data->finestra_settings;
+      key = FINESTRA_THEME_KEY;
+      generator = (ThumbnailGenFunc) generate_finestra_theme_thumbnail_async;
+      thumb_cb = (ThemeThumbnailFunc) finestra_theme_thumbnail_cb;
       break;
 
     case THEME_TYPE_ICON:
@@ -1070,7 +1070,7 @@ style_init (AppearanceData *data)
   prepare_list (data, appearance_capplet_get_widget (data, "icon_themes_list"), THEME_TYPE_ICON, (GCallback) icon_theme_changed);
   prepare_list (data, appearance_capplet_get_widget (data, "cursor_themes_list"), THEME_TYPE_CURSOR, (GCallback) cursor_theme_changed);
 
-  window_theme_changed (data->marco_settings, MARCO_THEME_KEY, data);
+  window_theme_changed (data->finestra_settings, FINESTRA_THEME_KEY, data);
   gtk_theme_changed (data->interface_settings, GTK_THEME_KEY, data);
   icon_theme_changed (data->interface_settings, ICON_THEME_KEY, data);
   cursor_theme_changed (data->mouse_settings, CURSOR_THEME_KEY, data);

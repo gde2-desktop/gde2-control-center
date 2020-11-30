@@ -1,15 +1,15 @@
 #include <config.h>
 #include <unistd.h>
 #include <string.h>
-#include <marco-private/util.h>
-#include <marco-private/theme.h>
-#include <marco-private/theme-parser.h>
-#include <marco-private/preview-widget.h>
+#include <finestra-private/util.h>
+#include <finestra-private/theme.h>
+#include <finestra-private/theme-parser.h>
+#include <finestra-private/preview-widget.h>
 #include <signal.h>
 #include <errno.h>
 #include <math.h>
 
-/* We have to #undef this as marco #defines these. */
+/* We have to #undef this as finestra #defines these. */
 #undef _
 #undef N_
 
@@ -89,13 +89,13 @@ static int pipe_from_factory_fd[2];
 
 #define THUMBNAIL_TYPE_META     "meta"
 #define THUMBNAIL_TYPE_GTK      "gtk"
-#define THUMBNAIL_TYPE_MARCO    "marco"
+#define THUMBNAIL_TYPE_FINESTRA    "finestra"
 #define THUMBNAIL_TYPE_ICON     "icon"
 
 #define META_THUMBNAIL_SIZE       128
 #define GTK_THUMBNAIL_SIZE         96
-#define MARCO_THUMBNAIL_WIDTH  120
-#define MARCO_THUMBNAIL_HEIGHT  60
+#define FINESTRA_THUMBNAIL_WIDTH  120
+#define FINESTRA_THUMBNAIL_HEIGHT  60
 
 /* This draw the thumbnail of gtk
  */
@@ -459,7 +459,7 @@ create_gtk_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
 }
 
 static GdkPixbuf *
-create_marco_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+create_finestra_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
 {
   GtkWidget *window, *preview, *dummy;
   MetaFrameFlags flags;
@@ -491,7 +491,7 @@ create_marco_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 #endif
-  gtk_window_set_default_size (GTK_WINDOW (window), (int) MARCO_THUMBNAIL_WIDTH * 1.2, (int) MARCO_THUMBNAIL_HEIGHT * 1.2);
+  gtk_window_set_default_size (GTK_WINDOW (window), (int) FINESTRA_THUMBNAIL_WIDTH * 1.2, (int) FINESTRA_THUMBNAIL_HEIGHT * 1.2);
 
   preview = meta_preview_new ();
   meta_preview_set_frame_flags (META_PREVIEW (preview), flags);
@@ -515,8 +515,8 @@ create_marco_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
   gtk_widget_get_preferred_size (window, &requisition, NULL);
   allocation.x = 0;
   allocation.y = 0;
-  allocation.width = (int) MARCO_THUMBNAIL_WIDTH * 1.2;
-  allocation.height = (int) MARCO_THUMBNAIL_HEIGHT * 1.2;
+  allocation.width = (int) FINESTRA_THUMBNAIL_WIDTH * 1.2;
+  allocation.height = (int) FINESTRA_THUMBNAIL_HEIGHT * 1.2;
   gtk_widget_size_allocate (window, &allocation);
   gtk_widget_get_preferred_size (window, &requisition, NULL);
 
@@ -529,19 +529,19 @@ create_marco_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
 #else
   pixmap = draw_window_on_pixbuf (window);
 
-  pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, (int) MARCO_THUMBNAIL_WIDTH * 1.2, (int) MARCO_THUMBNAIL_HEIGHT * 1.2);
-  gdk_pixbuf_get_from_drawable (pixbuf, pixmap, NULL, 0, 0, 0, 0, (int) MARCO_THUMBNAIL_WIDTH * 1.2, (int) MARCO_THUMBNAIL_HEIGHT * 1.2);
+  pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, (int) FINESTRA_THUMBNAIL_WIDTH * 1.2, (int) FINESTRA_THUMBNAIL_HEIGHT * 1.2);
+  gdk_pixbuf_get_from_drawable (pixbuf, pixmap, NULL, 0, 0, 0, 0, (int) FINESTRA_THUMBNAIL_WIDTH * 1.2, (int) FINESTRA_THUMBNAIL_HEIGHT * 1.2);
 #endif
 
   region = meta_preview_get_clip_region (META_PREVIEW (preview),
-      MARCO_THUMBNAIL_WIDTH * 1.2, MARCO_THUMBNAIL_HEIGHT * 1.2);
+      FINESTRA_THUMBNAIL_WIDTH * 1.2, FINESTRA_THUMBNAIL_HEIGHT * 1.2);
   pixbuf_apply_mask_region (pixbuf, region);
   gdk_region_destroy (region);
 
 
   retval = gdk_pixbuf_scale_simple (pixbuf,
-                                    MARCO_THUMBNAIL_WIDTH,
-                                    MARCO_THUMBNAIL_HEIGHT,
+                                    FINESTRA_THUMBNAIL_WIDTH,
+                                    FINESTRA_THUMBNAIL_HEIGHT,
                                     GDK_INTERP_BILINEAR);
   g_object_unref (pixbuf);
 
@@ -714,8 +714,8 @@ message_from_capplet (GIOChannel   *source,
           pixbuf = create_meta_theme_pixbuf (theme_thumbnail_data);
         else if (!strcmp (type, THUMBNAIL_TYPE_GTK))
           pixbuf = create_gtk_theme_pixbuf (theme_thumbnail_data);
-        else if (!strcmp (type, THUMBNAIL_TYPE_MARCO))
-          pixbuf = create_marco_theme_pixbuf (theme_thumbnail_data);
+        else if (!strcmp (type, THUMBNAIL_TYPE_FINESTRA))
+          pixbuf = create_finestra_theme_pixbuf (theme_thumbnail_data);
         else if (!strcmp (type, THUMBNAIL_TYPE_ICON))
           pixbuf = create_icon_theme_pixbuf (theme_thumbnail_data);
         else
@@ -787,8 +787,8 @@ generate_next_in_queue (void)
                                         item->func,
                                         item->user_data,
                                         item->destroy);
-  else if (!strcmp (item->thumbnail_type, THUMBNAIL_TYPE_MARCO))
-    generate_marco_theme_thumbnail_async ((Gde2ThemeInfo *) item->theme_info,
+  else if (!strcmp (item->thumbnail_type, THUMBNAIL_TYPE_FINESTRA))
+    generate_finestra_theme_thumbnail_async ((Gde2ThemeInfo *) item->theme_info,
                                              item->func,
                                              item->user_data,
                                              item->destroy);
@@ -896,7 +896,7 @@ static void
 send_thumbnail_request (gchar *thumbnail_type,
                         gchar *gtk_theme_name,
                         gchar *gtk_color_scheme,
-                        gchar *marco_theme_name,
+                        gchar *finestra_theme_name,
                         gchar *icon_theme_name,
                         gchar *application_font)
 {
@@ -912,8 +912,8 @@ send_thumbnail_request (gchar *thumbnail_type,
   else
     write (pipe_to_factory_fd[1], "", 1);
 
-  if (marco_theme_name)
-    write (pipe_to_factory_fd[1], marco_theme_name, strlen (marco_theme_name) + 1);
+  if (finestra_theme_name)
+    write (pipe_to_factory_fd[1], finestra_theme_name, strlen (finestra_theme_name) + 1);
   else
     write (pipe_to_factory_fd[1], "", 1);
 
@@ -988,7 +988,7 @@ static GdkPixbuf *
 generate_theme_thumbnail (gchar *thumbnail_type,
                           gchar *gtk_theme_name,
                           gchar *gtk_color_scheme,
-                          gchar *marco_theme_name,
+                          gchar *finestra_theme_name,
                           gchar *icon_theme_name,
                           gchar *application_font)
 {
@@ -998,7 +998,7 @@ generate_theme_thumbnail (gchar *thumbnail_type,
   send_thumbnail_request (thumbnail_type,
                           gtk_theme_name,
                           gtk_color_scheme,
-                          marco_theme_name,
+                          finestra_theme_name,
                           icon_theme_name,
                           application_font);
 
@@ -1011,7 +1011,7 @@ generate_meta_theme_thumbnail (Gde2ThemeMetaInfo *theme_info)
   return generate_theme_thumbnail (THUMBNAIL_TYPE_META,
                                    theme_info->gtk_theme_name,
                                    theme_info->gtk_color_scheme,
-                                   theme_info->marco_theme_name,
+                                   theme_info->finestra_theme_name,
                                    theme_info->icon_theme_name,
                                    theme_info->application_font);
 }
@@ -1033,9 +1033,9 @@ generate_gtk_theme_thumbnail (Gde2ThemeInfo *theme_info)
 }
 
 GdkPixbuf *
-generate_marco_theme_thumbnail (Gde2ThemeInfo *theme_info)
+generate_finestra_theme_thumbnail (Gde2ThemeInfo *theme_info)
 {
-  return generate_theme_thumbnail (THUMBNAIL_TYPE_MARCO,
+  return generate_theme_thumbnail (THUMBNAIL_TYPE_FINESTRA,
                                    NULL,
                                    NULL,
                                    theme_info->name,
@@ -1054,7 +1054,7 @@ generate_icon_theme_thumbnail (Gde2ThemeIconInfo *theme_info)
                                    NULL);
 }
 
-static void generate_theme_thumbnail_async(gpointer theme_info, gchar* theme_name, gchar* thumbnail_type, gchar* gtk_theme_name, gchar* gtk_color_scheme, gchar* marco_theme_name, gchar* icon_theme_name, gchar* application_font, ThemeThumbnailFunc func, gpointer user_data, GDestroyNotify destroy)
+static void generate_theme_thumbnail_async(gpointer theme_info, gchar* theme_name, gchar* thumbnail_type, gchar* gtk_theme_name, gchar* gtk_color_scheme, gchar* finestra_theme_name, gchar* icon_theme_name, gchar* application_font, ThemeThumbnailFunc func, gpointer user_data, GDestroyNotify destroy)
 {
 	if (async_data.set)
 	{
@@ -1101,7 +1101,7 @@ static void generate_theme_thumbnail_async(gpointer theme_info, gchar* theme_nam
 	async_data.user_data = user_data;
 	async_data.destroy = destroy;
 
-	send_thumbnail_request(thumbnail_type, gtk_theme_name, gtk_color_scheme, marco_theme_name, icon_theme_name, application_font);
+	send_thumbnail_request(thumbnail_type, gtk_theme_name, gtk_color_scheme, finestra_theme_name, icon_theme_name, application_font);
 }
 
 void
@@ -1115,7 +1115,7 @@ generate_meta_theme_thumbnail_async (Gde2ThemeMetaInfo *theme_info,
                                          THUMBNAIL_TYPE_META,
                                          theme_info->gtk_theme_name,
                                          theme_info->gtk_color_scheme,
-                                         theme_info->marco_theme_name,
+                                         theme_info->finestra_theme_name,
                                          theme_info->icon_theme_name,
                                          theme_info->application_font,
                                          func, user_data, destroy);
@@ -1131,14 +1131,14 @@ void generate_gtk_theme_thumbnail_async (Gde2ThemeInfo* theme_info, ThemeThumbna
 }
 
 void
-generate_marco_theme_thumbnail_async (Gde2ThemeInfo *theme_info,
+generate_finestra_theme_thumbnail_async (Gde2ThemeInfo *theme_info,
                                          ThemeThumbnailFunc  func,
                                          gpointer            user_data,
                                          GDestroyNotify      destroy)
 {
   generate_theme_thumbnail_async (theme_info,
                                          theme_info->name,
-                                         THUMBNAIL_TYPE_MARCO,
+                                         THUMBNAIL_TYPE_FINESTRA,
                                          NULL,
                                          NULL,
                                          theme_info->name,

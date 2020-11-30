@@ -2531,32 +2531,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "ウィンドウをつかんで移動する際に使用する修飾キー:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "巻き上げる"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "最大化する"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "横方向に最大化する"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "縦方向に最大化する"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "最小化する"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "何もしない"
 

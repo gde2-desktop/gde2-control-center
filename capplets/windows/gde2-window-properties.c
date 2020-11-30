@@ -39,25 +39,25 @@
 #include "wm-common.h"
 #include "capplet-util.h"
 
-#define MARCO_SCHEMA "org.gde2.Marco.general"
-#define MARCO_THEME_KEY "theme"
-#define MARCO_FONT_KEY  "titlebar-font"
-#define MARCO_FOCUS_KEY "focus-mode"
-#define MARCO_USE_SYSTEM_FONT_KEY "titlebar-uses-system-font"
-#define MARCO_AUTORAISE_KEY "auto-raise"
-#define MARCO_AUTORAISE_DELAY_KEY "auto-raise-delay"
-#define MARCO_MOUSE_MODIFIER_KEY "mouse-button-modifier"
-#define MARCO_DOUBLE_CLICK_TITLEBAR_KEY "action-double-click-titlebar"
-#define MARCO_COMPOSITING_MANAGER_KEY "compositing-manager"
-#define MARCO_COMPOSITING_FAST_ALT_TAB_KEY "compositing-fast-alt-tab"
-#define MARCO_SIDE_BY_SIDE_TILING_KEY "side-by-side-tiling"
-#define MARCO_CENTER_NEW_WINDOWS_KEY "center-new-windows"
-#define MARCO_BUTTON_LAYOUT_KEY "button-layout"
+#define FINESTRA_SCHEMA "org.gde2.Finestra.general"
+#define FINESTRA_THEME_KEY "theme"
+#define FINESTRA_FONT_KEY  "titlebar-font"
+#define FINESTRA_FOCUS_KEY "focus-mode"
+#define FINESTRA_USE_SYSTEM_FONT_KEY "titlebar-uses-system-font"
+#define FINESTRA_AUTORAISE_KEY "auto-raise"
+#define FINESTRA_AUTORAISE_DELAY_KEY "auto-raise-delay"
+#define FINESTRA_MOUSE_MODIFIER_KEY "mouse-button-modifier"
+#define FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY "action-double-click-titlebar"
+#define FINESTRA_COMPOSITING_MANAGER_KEY "compositing-manager"
+#define FINESTRA_COMPOSITING_FAST_ALT_TAB_KEY "compositing-fast-alt-tab"
+#define FINESTRA_SIDE_BY_SIDE_TILING_KEY "side-by-side-tiling"
+#define FINESTRA_CENTER_NEW_WINDOWS_KEY "center-new-windows"
+#define FINESTRA_BUTTON_LAYOUT_KEY "button-layout"
 
-#define MARCO_BUTTON_LAYOUT_RIGHT "menu:minimize,maximize,close"
-#define MARCO_BUTTON_LAYOUT_LEFT "close,minimize,maximize:"
+#define FINESTRA_BUTTON_LAYOUT_RIGHT "menu:minimize,maximize,close"
+#define FINESTRA_BUTTON_LAYOUT_LEFT "close,minimize,maximize:"
 
-/* keep following enums in sync with marco */
+/* keep following enums in sync with finestra */
 enum
 {
     ACTION_TITLEBAR_TOGGLE_SHADE,
@@ -98,7 +98,7 @@ static GtkWidget *double_click_titlebar_optionmenu;
 static GtkWidget *titlebar_layout_optionmenu;
 static GtkWidget *alt_click_vbox;
 
-static GSettings *marco_settings;
+static GSettings *finestra_settings;
 
 static MouseClickModifier *mouse_modifiers = NULL;
 static int n_mouse_modifiers = 0;
@@ -111,24 +111,24 @@ update_sensitivity ()
     gchar *str;
 
     gtk_widget_set_sensitive (GTK_WIDGET (compositing_fast_alt_tab_checkbutton),
-                              g_settings_get_boolean (marco_settings, MARCO_COMPOSITING_MANAGER_KEY));
+                              g_settings_get_boolean (finestra_settings, FINESTRA_COMPOSITING_MANAGER_KEY));
     gtk_widget_set_sensitive (GTK_WIDGET (focus_mode_mouse_checkbutton),
-                              g_settings_get_enum (marco_settings, MARCO_FOCUS_KEY) != FOCUS_MODE_CLICK);
+                              g_settings_get_enum (finestra_settings, FINESTRA_FOCUS_KEY) != FOCUS_MODE_CLICK);
     gtk_widget_set_sensitive (GTK_WIDGET (autoraise_checkbutton),
-                              g_settings_get_enum (marco_settings, MARCO_FOCUS_KEY) != FOCUS_MODE_CLICK);
+                              g_settings_get_enum (finestra_settings, FINESTRA_FOCUS_KEY) != FOCUS_MODE_CLICK);
     gtk_widget_set_sensitive (GTK_WIDGET (autoraise_delay_hbox),
-                              g_settings_get_enum (marco_settings, MARCO_FOCUS_KEY) != FOCUS_MODE_CLICK &&
-                              g_settings_get_boolean (marco_settings, MARCO_AUTORAISE_KEY));
+                              g_settings_get_enum (finestra_settings, FINESTRA_FOCUS_KEY) != FOCUS_MODE_CLICK &&
+                              g_settings_get_boolean (finestra_settings, FINESTRA_AUTORAISE_KEY));
 
-    str = g_settings_get_string (marco_settings, MARCO_BUTTON_LAYOUT_KEY);
+    str = g_settings_get_string (finestra_settings, FINESTRA_BUTTON_LAYOUT_KEY);
     gtk_widget_set_sensitive (GTK_WIDGET (titlebar_layout_optionmenu),
-                              g_strcmp0 (str, MARCO_BUTTON_LAYOUT_LEFT) == 0 ||
-                              g_strcmp0 (str, MARCO_BUTTON_LAYOUT_RIGHT) == 0);
+                              g_strcmp0 (str, FINESTRA_BUTTON_LAYOUT_LEFT) == 0 ||
+                              g_strcmp0 (str, FINESTRA_BUTTON_LAYOUT_RIGHT) == 0);
     g_free (str);
 }
 
 static void
-marco_settings_changed_callback (GSettings *settings,
+finestra_settings_changed_callback (GSettings *settings,
                                  const gchar *key,
                                  gpointer user_data)
 {
@@ -140,13 +140,13 @@ mouse_focus_toggled_callback (GtkWidget *button,
                               void      *data)
 {
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (focus_mode_checkbutton))) {
-        g_settings_set_enum (marco_settings,
-                             MARCO_FOCUS_KEY,
+        g_settings_set_enum (finestra_settings,
+                             FINESTRA_FOCUS_KEY,
                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (focus_mode_mouse_checkbutton)) ?
                              FOCUS_MODE_MOUSE : FOCUS_MODE_SLOPPY);
     }
     else {
-        g_settings_set_enum (marco_settings, MARCO_FOCUS_KEY, FOCUS_MODE_CLICK);
+        g_settings_set_enum (finestra_settings, FINESTRA_FOCUS_KEY, FOCUS_MODE_CLICK);
     }
 }
 
@@ -173,8 +173,8 @@ static void
 autoraise_delay_value_changed_callback (GtkWidget *slider,
                                         void      *data)
 {
-    g_settings_set_int (marco_settings,
-                        MARCO_AUTORAISE_DELAY_KEY,
+    g_settings_set_int (finestra_settings,
+                        FINESTRA_AUTORAISE_DELAY_KEY,
                         gtk_range_get_value (GTK_RANGE (slider)) * 1000);
 }
 
@@ -182,7 +182,7 @@ static void
 double_click_titlebar_changed_callback (GtkWidget *optionmenu,
                                         void      *data)
 {
-    g_settings_set_enum (marco_settings, MARCO_DOUBLE_CLICK_TITLEBAR_KEY,
+    g_settings_set_enum (finestra_settings, FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY,
                          gtk_combo_box_get_active (GTK_COMBO_BOX (optionmenu)));
 }
 
@@ -193,10 +193,10 @@ titlebar_layout_changed_callback (GtkWidget *optionmenu,
     gint value = gtk_combo_box_get_active (GTK_COMBO_BOX (optionmenu));
 
     if (value == 0) {
-        g_settings_set_string (marco_settings, MARCO_BUTTON_LAYOUT_KEY, MARCO_BUTTON_LAYOUT_RIGHT);
+        g_settings_set_string (finestra_settings, FINESTRA_BUTTON_LAYOUT_KEY, FINESTRA_BUTTON_LAYOUT_RIGHT);
     }
     else if (value == 1) {
-        g_settings_set_string (marco_settings, MARCO_BUTTON_LAYOUT_KEY, MARCO_BUTTON_LAYOUT_LEFT);
+        g_settings_set_string (finestra_settings, FINESTRA_BUTTON_LAYOUT_KEY, FINESTRA_BUTTON_LAYOUT_LEFT);
     }
 }
 
@@ -212,7 +212,7 @@ alt_click_radio_toggled_callback (GtkWidget *radio,
 
     if (active) {
         value = g_strdup_printf ("<%s>", modifier->value);
-        g_settings_set_string (marco_settings, MARCO_MOUSE_MODIFIER_KEY, value);
+        g_settings_set_string (finestra_settings, FINESTRA_MOUSE_MODIFIER_KEY, value);
         g_free (value);
     }
 }
@@ -225,7 +225,7 @@ set_alt_click_value ()
     gchar *value;
     int i;
 
-    mouse_move_modifier = g_settings_get_string (marco_settings, MARCO_MOUSE_MODIFIER_KEY);
+    mouse_move_modifier = g_settings_get_string (finestra_settings, FINESTRA_MOUSE_MODIFIER_KEY);
 
     /* We look for a matching modifier and set it. */
     if (mouse_move_modifier != NULL) {
@@ -276,7 +276,7 @@ wm_changed_callback (GdkScreen *screen,
 
     current_wm = gdk_x11_screen_get_window_manager_name (screen);
 
-    gtk_widget_set_sensitive (dialog_win, g_strcmp0 (current_wm, WM_COMMON_MARCO) == 0);
+    gtk_widget_set_sensitive (dialog_win, g_strcmp0 (current_wm, WM_COMMON_FINESTRA) == 0);
 }
 
 static void
@@ -347,12 +347,12 @@ main (int argc, char **argv)
         return 0;
     }
 
-    if (g_strcmp0 (current_wm, WM_COMMON_MARCO) != 0) {
+    if (g_strcmp0 (current_wm, WM_COMMON_FINESTRA) != 0) {
         wm_unsupported ();
         return 1;
     }
 
-    marco_settings = g_settings_new (MARCO_SCHEMA);
+    finestra_settings = g_settings_new (FINESTRA_SCHEMA);
 
     /* Window */
     dialog_win = gtk_dialog_new_with_buttons (_("Window Preferences"),
@@ -572,9 +572,9 @@ main (int argc, char **argv)
 
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (titlebar_layout_optionmenu), _("Right"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (titlebar_layout_optionmenu), _("Left"));
-    str = g_settings_get_string (marco_settings, MARCO_BUTTON_LAYOUT_KEY);
+    str = g_settings_get_string (finestra_settings, FINESTRA_BUTTON_LAYOUT_KEY);
     gtk_combo_box_set_active (GTK_COMBO_BOX (titlebar_layout_optionmenu),
-                              g_strcmp0 (str, MARCO_BUTTON_LAYOUT_RIGHT) == 0 ? 0 : 1);
+                              g_strcmp0 (str, FINESTRA_BUTTON_LAYOUT_RIGHT) == 0 ? 0 : 1);
     g_free (str);
 
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (double_click_titlebar_optionmenu), _("Roll up"));
@@ -584,13 +584,13 @@ main (int argc, char **argv)
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (double_click_titlebar_optionmenu), _("Minimize"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (double_click_titlebar_optionmenu), _("None"));
     gtk_combo_box_set_active (GTK_COMBO_BOX (double_click_titlebar_optionmenu),
-                              g_settings_get_enum (marco_settings, MARCO_DOUBLE_CLICK_TITLEBAR_KEY));
+                              g_settings_get_enum (finestra_settings, FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY));
 
     set_alt_click_value ();
     gtk_range_set_value (GTK_RANGE (autoraise_delay_slider),
-                         g_settings_get_int (marco_settings, MARCO_AUTORAISE_DELAY_KEY) / 1000.0);
+                         g_settings_get_int (finestra_settings, FINESTRA_AUTORAISE_DELAY_KEY) / 1000.0);
     gtk_combo_box_set_active (GTK_COMBO_BOX (double_click_titlebar_optionmenu),
-                              g_settings_get_enum (marco_settings, MARCO_DOUBLE_CLICK_TITLEBAR_KEY));
+                              g_settings_get_enum (finestra_settings, FINESTRA_DOUBLE_CLICK_TITLEBAR_KEY));
 
     g_signal_connect (G_OBJECT (dialog_win), "response",
                       G_CALLBACK (response_cb), NULL);
@@ -598,45 +598,45 @@ main (int argc, char **argv)
     g_signal_connect (G_OBJECT (dialog_win), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
-    g_signal_connect (marco_settings, "changed",
-                      G_CALLBACK (marco_settings_changed_callback), NULL);
+    g_signal_connect (finestra_settings, "changed",
+                      G_CALLBACK (finestra_settings_changed_callback), NULL);
 
-    g_settings_bind (marco_settings,
-                     MARCO_COMPOSITING_MANAGER_KEY,
+    g_settings_bind (finestra_settings,
+                     FINESTRA_COMPOSITING_MANAGER_KEY,
                      compositing_checkbutton,
                      "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    g_settings_bind (marco_settings,
-                     MARCO_COMPOSITING_FAST_ALT_TAB_KEY,
+    g_settings_bind (finestra_settings,
+                     FINESTRA_COMPOSITING_FAST_ALT_TAB_KEY,
                      compositing_fast_alt_tab_checkbutton,
                      "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    g_settings_bind (marco_settings,
-                     MARCO_SIDE_BY_SIDE_TILING_KEY,
+    g_settings_bind (finestra_settings,
+                     FINESTRA_SIDE_BY_SIDE_TILING_KEY,
                      side_by_side_tiling_checkbutton,
                      "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    g_settings_bind (marco_settings,
-                     MARCO_CENTER_NEW_WINDOWS_KEY,
+    g_settings_bind (finestra_settings,
+                     FINESTRA_CENTER_NEW_WINDOWS_KEY,
                      center_new_windows_checkbutton,
                      "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    g_signal_connect (marco_settings, "changed::" MARCO_FOCUS_KEY,
+    g_signal_connect (finestra_settings, "changed::" FINESTRA_FOCUS_KEY,
                       G_CALLBACK (mouse_focus_changed_callback), NULL);
     /* Initialize the checkbox state appropriately */
-    mouse_focus_changed_callback(marco_settings, MARCO_FOCUS_KEY, NULL);
+    mouse_focus_changed_callback(finestra_settings, FINESTRA_FOCUS_KEY, NULL);
 
     g_signal_connect (focus_mode_checkbutton, "toggled",
                       G_CALLBACK (mouse_focus_toggled_callback), NULL);
     g_signal_connect (focus_mode_mouse_checkbutton, "toggled",
                       G_CALLBACK (mouse_focus_toggled_callback), NULL);
 
-    g_settings_bind (marco_settings,
-                     MARCO_AUTORAISE_KEY,
+    g_settings_bind (finestra_settings,
+                     FINESTRA_AUTORAISE_KEY,
                      autoraise_checkbutton,
                      "active",
                      G_SETTINGS_BIND_DEFAULT);
@@ -671,7 +671,7 @@ main (int argc, char **argv)
 
     gtk_main ();
 
-    g_object_unref (marco_settings);
+    g_object_unref (finestra_settings);
 
     return 0;
 }

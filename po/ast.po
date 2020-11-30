@@ -2524,32 +2524,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "Pa mover una ventana, caltenga calcada esta tecla y llueu arrastre la ventana:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "Endolcar"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "Maximizar"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "Maximizar horizontalmente"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "Maximizar verticalmente"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "Minimizar"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "Dengún"
 
@@ -2667,7 +2667,7 @@ msgstr "Un recordatoriu pa los descansos frente a la computadora."
 
 #: ../typing-break/drwright.c:639
 msgid "translator-credits"
-msgstr "Launchpad Contributions:\n  Esbardu https://launchpad.net/~esguil\n  Iñigo Varela https://launchpad.net/~ivarela\n  Marcos https://launchpad.net/~marcos.alvarez.costales\n  Xandru https://launchpad.net/~alarmes\n  Xandru Martino https://launchpad.net/~xandru-martino\n  Xuacu Saturio https://launchpad.net/~xuacusk8"
+msgstr "Launchpad Contributions:\n  Esbardu https://launchpad.net/~esguil\n  Iñigo Varela https://launchpad.net/~ivarela\n  Finestras https://launchpad.net/~finestras.alvarez.costales\n  Xandru https://launchpad.net/~alarmes\n  Xandru Martino https://launchpad.net/~xandru-martino\n  Xuacu Saturio https://launchpad.net/~xuacusk8"
 
 #: ../typing-break/main.c:63
 msgid "Enable debugging code"

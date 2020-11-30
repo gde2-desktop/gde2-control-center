@@ -33,8 +33,8 @@
 #define ICON_THEME_KEY          "icon-theme"
 #define FONT_KEY                "font-name"
 
-#define MARCO_SCHEMA            "org.gde2.Marco.general"
-#define MARCO_THEME_KEY         "theme"
+#define FINESTRA_SCHEMA            "org.gde2.Finestra.general"
+#define FINESTRA_THEME_KEY         "theme"
 
 #define MOUSE_SCHEMA            "org.gde2.peripherals-mouse"
 #define CURSOR_FONT_KEY         "cursor-font"
@@ -50,14 +50,14 @@ void
 gde2_meta_theme_set (Gde2ThemeMetaInfo *meta_theme_info)
 {
   GSettings *interface_settings;
-  GSettings *marco_settings;
+  GSettings *finestra_settings;
   GSettings *mouse_settings;
   GSettings *notification_settings = NULL;
   gchar *old_key;
   gint old_key_int;
 
   interface_settings = g_settings_new (INTERFACE_SCHEMA);
-  marco_settings = g_settings_new (MARCO_SCHEMA);
+  finestra_settings = g_settings_new (FINESTRA_SCHEMA);
   mouse_settings = g_settings_new (MOUSE_SCHEMA);
   
   if (gde2_gsettings_schema_exists (NOTIFICATION_SCHEMA))
@@ -98,7 +98,7 @@ gde2_meta_theme_set (Gde2ThemeMetaInfo *meta_theme_info)
   g_free (old_key);
 
   /* Set the wm key */
-  g_settings_set_string (marco_settings, MARCO_THEME_KEY, meta_theme_info->marco_theme_name);
+  g_settings_set_string (finestra_settings, FINESTRA_THEME_KEY, meta_theme_info->finestra_theme_name);
 
   /* set the icon theme */
   old_key = g_settings_get_string (interface_settings, ICON_THEME_KEY);
@@ -145,7 +145,7 @@ gde2_meta_theme_set (Gde2ThemeMetaInfo *meta_theme_info)
 
   g_free (old_key);
   g_object_unref (interface_settings);
-  g_object_unref (marco_settings);
+  g_object_unref (finestra_settings);
   g_object_unref (mouse_settings);
   if (notification_settings != NULL)
     g_object_unref (notification_settings);

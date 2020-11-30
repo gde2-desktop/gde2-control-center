@@ -40,7 +40,7 @@ gde2_appearance_properties_LDADD = \
 	$(top_builddir)/capplets/common/libcommon.la \
 	$(GDE2CC_CAPPLETS_LIBS) \
 	$(FONT_CAPPLET_LIBS) \
-	$(MARCO_LIBS)
+	$(FINESTRA_LIBS)
 gde2_appearance_properties_LDFLAGS = -export-dynamic
 
 gtkbuilderdir = $(pkgdatadir)/ui
@@ -48,7 +48,7 @@ pixmapdir = $(pkgdatadir)/pixmaps
 wallpaperdir = $(datadir)/gde2-background-properties
 
 AM_CPPFLAGS = \
-	$(MARCO_CFLAGS) \
+	$(FINESTRA_CFLAGS) \
 	$(GDE2CC_CAPPLETS_CFLAGS) \
 	$(FONT_CAPPLET_CFLAGS) \
 	-DGDE2LOCALEDIR="\"$(datadir)/locale\"" \

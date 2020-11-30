@@ -2522,32 +2522,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "ଗୋଟିଏ ଉଇଣ୍ଡୋକୁ ଘୁଞ୍ଚାଇବା ପାଇଁ, ଏହି କିକୁ ଧରି ରଖ ତାପରେ ଉଇଣ୍ଡୋକୁ ଟାଣିଆଣ :"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "ଘୂର୍ଣ୍ଣନ ଉପର"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "  ବଡ କର"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "ସମାନ୍ତରାଳରେ ବୃଦ୍ଧିକରନ୍ତୁ"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "ଭୂଲମ୍ବରେ ବୃଦ୍ଧିକରନ୍ତୁ"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr " ଛୋଟ କର"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "କିଛି ନୁହେଁ"
 

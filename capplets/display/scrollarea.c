@@ -897,7 +897,7 @@ create_new_surface (GtkWidget *widget,
      * so we just assume we were dragged from the south-east corner.
      *
      * Although, maybe we could get the root coordinates of the input-window?
-     * That might just work, actually. We need to make sure marco uses
+     * That might just work, actually. We need to make sure finestra uses
      * static gravity for the window before this will be useful.
      */
 
@@ -930,7 +930,7 @@ create_new_pixmap (GtkWidget *widget,
      * so we just assume we were dragged from the south-east corner.
      *
      * Although, maybe we could get the root coordinates of the input-window?
-     * That might just work, actually. We need to make sure marco uses
+     * That might just work, actually. We need to make sure finestra uses
      * static gravity for the window before this will be useful.
      */
 

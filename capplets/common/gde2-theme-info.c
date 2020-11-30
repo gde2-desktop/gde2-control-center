@@ -47,7 +47,7 @@
 #define THEME_COMMENT "X-GNOME-Metatheme/Comment"
 #define GTK_THEME_KEY "X-GNOME-Metatheme/GtkTheme"
 #define GTK_COLOR_SCHEME_KEY "X-GNOME-Metatheme/GtkColorScheme"
-#define MARCO_THEME_KEY "X-GNOME-Metatheme/MetacityTheme"
+#define FINESTRA_THEME_KEY "X-GNOME-Metatheme/MetacityTheme"
 #define ICON_THEME_KEY "X-GNOME-Metatheme/IconTheme"
 #define CURSOR_THEME_KEY "X-GNOME-Metatheme/CursorTheme"
 #define NOTIFICATION_THEME_KEY "X-GNOME-Metatheme/NotificationTheme"
@@ -79,7 +79,7 @@ typedef struct {
 	GFileMonitor* common_theme_dir_handle;
 	GFileMonitor* gtk2_dir_handle;
 	GFileMonitor* keybinding_dir_handle;
-	GFileMonitor* marco_dir_handle;
+	GFileMonitor* finestra_dir_handle;
 	gint priority;
 } CommonThemeDirMonitorData;
 
@@ -358,7 +358,7 @@ Gde2ThemeMetaInfo* gde2_theme_read_meta_theme(GFile* meta_theme_uri)
 				*scheme = '\n';
 	}
 
-	str = gde2_desktop_item_get_string (meta_theme_ditem, MARCO_THEME_KEY);
+	str = gde2_desktop_item_get_string (meta_theme_ditem, FINESTRA_THEME_KEY);
 
 	if (str == NULL)
 	{
@@ -366,7 +366,7 @@ Gde2ThemeMetaInfo* gde2_theme_read_meta_theme(GFile* meta_theme_uri)
 		return NULL;
 	}
 
-	meta_theme_info->marco_theme_name = g_strdup (str);
+	meta_theme_info->finestra_theme_name = g_strdup (str);
 
 	str = gde2_desktop_item_get_string(meta_theme_ditem, ICON_THEME_KEY);
 
@@ -772,8 +772,8 @@ handle_change_signal (gpointer             data,
       element_str = "gtk-2";
     else if (element_type & GDE2_THEME_GTK_2_KEYBINDING)
       element_str = "keybinding";
-    else if (element_type & GDE2_THEME_MARCO)
-      element_str = "marco";
+    else if (element_type & GDE2_THEME_FINESTRA)
+      element_str = "finestra";
   }
 
   if (change_type == GDE2_THEME_CHANGE_CREATED)
@@ -832,8 +832,8 @@ update_theme_index (GFile            *index_uri,
         theme_info->has_gtk = TRUE;
       else if (key_element & GDE2_THEME_GTK_2_KEYBINDING)
         theme_info->has_keybinding = TRUE;
-      else if (key_element & GDE2_THEME_MARCO)
-        theme_info->has_marco = TRUE;
+      else if (key_element & GDE2_THEME_FINESTRA)
+        theme_info->has_finestra = TRUE;
 
       g_hash_table_insert (theme_hash_by_uri, g_strdup (common_theme_dir), theme_info);
       add_theme_to_hash_by_name (theme_hash_by_name, theme_info);
@@ -848,12 +848,12 @@ update_theme_index (GFile            *index_uri,
     } else if (key_element & GDE2_THEME_GTK_2_KEYBINDING) {
       theme_used_to_exist = theme_info->has_keybinding;
       theme_info->has_keybinding = theme_exists;
-    } else if (key_element & GDE2_THEME_MARCO) {
-      theme_used_to_exist = theme_info->has_marco;
-      theme_info->has_marco = theme_exists;
+    } else if (key_element & GDE2_THEME_FINESTRA) {
+      theme_used_to_exist = theme_info->has_finestra;
+      theme_info->has_finestra = theme_exists;
     }
 
-    if (!theme_info->has_marco && !theme_info->has_keybinding && !theme_info->has_gtk) {
+    if (!theme_info->has_finestra && !theme_info->has_keybinding && !theme_info->has_gtk) {
       g_hash_table_remove (theme_hash_by_uri, common_theme_dir);
       remove_theme_from_hash_by_name (theme_hash_by_name, theme_info);
     }
@@ -866,7 +866,7 @@ update_theme_index (GFile            *index_uri,
       handle_change_signal (theme_info, GDE2_THEME_CHANGE_DELETED, key_element);
     }
 
-    if (!theme_info->has_marco && !theme_info->has_keybinding && !theme_info->has_gtk) {
+    if (!theme_info->has_finestra && !theme_info->has_keybinding && !theme_info->has_gtk) {
       gde2_theme_info_free (theme_info);
     }
   }
@@ -891,10 +891,10 @@ update_keybinding_index (GFile *keybinding_index_uri,
 }
 
 static void
-update_marco_index (GFile *marco_index_uri,
+update_finestra_index (GFile *finestra_index_uri,
                        gint   priority)
 {
-  update_theme_index (marco_index_uri, GDE2_THEME_MARCO, priority);
+  update_theme_index (finestra_index_uri, GDE2_THEME_FINESTRA, priority);
 }
 
 static void
@@ -1048,7 +1048,7 @@ keybinding_dir_changed (GFileMonitor              *monitor,
 }
 
 static void
-marco_dir_changed (GFileMonitor              *monitor,
+finestra_dir_changed (GFileMonitor              *monitor,
                       GFile                     *file,
                       GFile                     *other_file,
                       GFileMonitorEvent          event_type,
@@ -1060,7 +1060,7 @@ marco_dir_changed (GFileMonitor              *monitor,
 
   /* The only file we care about is metacity-theme-(1|2).xml */
   if (!strcmp (affected_file, "metacity-theme-1.xml") || !strcmp (affected_file, "metacity-theme-2.xml")) {
-    update_marco_index (file, monitor_data->priority);
+    update_finestra_index (file, monitor_data->priority);
   }
 
   g_free (affected_file);
@@ -1174,17 +1174,17 @@ add_common_theme_dir_monitor (GFile                      *theme_dir_uri,
   monitor_data->keybinding_dir_handle = monitor;
   g_object_unref (subdir);
 
-  /* marco theme subdir */
+  /* finestra theme subdir */
   subdir = g_file_get_child (theme_dir_uri, "metacity-1");
   uri = g_file_get_child (subdir, "metacity-theme-2.xml");
   if (g_file_query_exists (uri, NULL)) {
-    update_marco_index (uri, monitor_data->priority);
+    update_finestra_index (uri, monitor_data->priority);
   }
   else {
     g_object_unref (uri);
     uri = g_file_get_child (subdir, "metacity-theme-1.xml");
     if (g_file_query_exists (uri, NULL)) {
-      update_marco_index (uri, monitor_data->priority);
+      update_finestra_index (uri, monitor_data->priority);
     }
   }
   g_object_unref (uri);
@@ -1192,9 +1192,9 @@ add_common_theme_dir_monitor (GFile                      *theme_dir_uri,
   monitor = g_file_monitor_directory (subdir, G_FILE_MONITOR_NONE, NULL, NULL);
   if (monitor != NULL) {
     g_signal_connect (monitor, "changed",
-                      (GCallback) marco_dir_changed, monitor_data);
+                      (GCallback) finestra_dir_changed, monitor_data);
   }
-  monitor_data->marco_dir_handle = monitor;
+  monitor_data->finestra_dir_handle = monitor;
   g_object_unref (subdir);
 
   return TRUE;
@@ -1231,7 +1231,7 @@ remove_common_theme_dir_monitor (CommonThemeDirMonitorData *monitor_data)
   g_file_monitor_cancel (monitor_data->common_theme_dir_handle);
   g_file_monitor_cancel (monitor_data->gtk2_dir_handle);
   g_file_monitor_cancel (monitor_data->keybinding_dir_handle);
-  g_file_monitor_cancel (monitor_data->marco_dir_handle);
+  g_file_monitor_cancel (monitor_data->finestra_dir_handle);
 }
 
 static void
@@ -1406,7 +1406,7 @@ add_top_icon_theme_dir_monitor (GFile   *uri,
 
 /* Public functions */
 
-/* GTK/Marco/keybinding Themes */
+/* GTK/Finestra/keybinding Themes */
 Gde2ThemeInfo *
 gde2_theme_info_new (void)
 {
@@ -1450,7 +1450,7 @@ gde2_theme_info_find_by_type_helper (gpointer key,
   do {
     Gde2ThemeInfo *theme_info = list->data;
 
-    if ((elements & GDE2_THEME_MARCO && theme_info->has_marco) ||
+    if ((elements & GDE2_THEME_FINESTRA && theme_info->has_finestra) ||
         (elements & GDE2_THEME_GTK_2 && theme_info->has_gtk) ||
         (elements & GDE2_THEME_GTK_2_KEYBINDING && theme_info->has_keybinding)) {
       hash_data->list = g_list_prepend (hash_data->list, theme_info);
@@ -1677,7 +1677,7 @@ void gde2_theme_meta_info_free(Gde2ThemeMetaInfo* meta_theme_info)
 	g_free(meta_theme_info->gtk_theme_name);
 	g_free(meta_theme_info->gtk_color_scheme);
 	g_free(meta_theme_info->icon_theme_name);
-	g_free(meta_theme_info->marco_theme_name);
+	g_free(meta_theme_info->finestra_theme_name);
 	g_free(meta_theme_info->notification_theme_name);
 	g_free(meta_theme_info);
 }
@@ -1698,13 +1698,13 @@ gboolean gde2_theme_meta_info_validate(const Gde2ThemeMetaInfo* info, GError** e
 		return FALSE;
 	}
 
-	theme = gde2_theme_info_find (info->marco_theme_name);
+	theme = gde2_theme_info_find (info->finestra_theme_name);
 
-	if (!theme || !theme->has_marco)
+	if (!theme || !theme->has_finestra)
 	{
 		g_set_error (error, GDE2_THEME_ERROR, GDE2_THEME_ERROR_WM_THEME_NOT_AVAILABLE,
 			_("This theme will not look as intended because the required window manager theme '%s' is not installed."),
-			info->marco_theme_name);
+			info->finestra_theme_name);
 		return FALSE;
 	}
 
@@ -1776,7 +1776,7 @@ gde2_theme_meta_info_compare (Gde2ThemeMetaInfo *a,
   cmp = safe_strcmp (a->gtk_color_scheme, b->gtk_color_scheme);
   if (cmp != 0) return cmp;
 
-  cmp = safe_strcmp (a->marco_theme_name, b->marco_theme_name);
+  cmp = safe_strcmp (a->finestra_theme_name, b->finestra_theme_name);
   if (cmp != 0) return cmp;
 
   cmp = safe_strcmp (a->icon_theme_name, b->icon_theme_name);

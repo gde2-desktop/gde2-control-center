@@ -71,7 +71,7 @@ capplets/windows/gde2-metacity-support.c
 capplets/windows/gde2-window-properties.c
 capplets/windows/gde2-window-properties.desktop.in.in
 libwindow-settings/gde2-wm-manager.c
-libwindow-settings/marco-window-manager.c
+libwindow-settings/finestra-window-manager.c
 shell/control-center.c
 shell/gde2cc.desktop.in.in
 shell/gde2cc.directory.in

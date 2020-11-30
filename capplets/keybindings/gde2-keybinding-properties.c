@@ -1832,7 +1832,7 @@ selection_changed (GtkTreeSelection *selection, gpointer data)
 }
 
 static void
-setup_dialog (GtkBuilder *builder, GSettings *marco_settings)
+setup_dialog (GtkBuilder *builder, GSettings *finestra_settings)
 {
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
@@ -1883,7 +1883,7 @@ setup_dialog (GtkBuilder *builder, GSettings *marco_settings)
   gtk_tree_view_append_column (treeview, column);
   gtk_tree_view_column_set_sort_column_id (column, KEYENTRY_COLUMN);
 
-  g_signal_connect (marco_settings,
+  g_signal_connect (finestra_settings,
                     "changed::num-workspaces",
                     G_CALLBACK (key_entry_controlling_key_changed),
                     builder);
@@ -1934,7 +1934,7 @@ int
 main (int argc, char *argv[])
 {
   GtkBuilder *builder;
-  GSettings *marco_settings;
+  GSettings *finestra_settings;
 
   gtk_init (&argc, &argv);
 
@@ -1953,13 +1953,13 @@ main (int argc, char *argv[])
 
   wm_common_register_window_manager_change ((GFunc) on_window_manager_change, builder);
 
-  marco_settings = g_settings_new ("org.gde2.Marco.general");
+  finestra_settings = g_settings_new ("org.gde2.Finestra.general");
 
-  setup_dialog (builder, marco_settings);
+  setup_dialog (builder, finestra_settings);
 
   gtk_main ();
 
-  g_object_unref (marco_settings);
+  g_object_unref (finestra_settings);
   g_object_unref (builder);
   return 0;
 }

@@ -11,7 +11,7 @@ typedef void (* ThemeThumbnailFunc)          (GdkPixbuf          *pixbuf,
 
 GdkPixbuf *generate_meta_theme_thumbnail     (Gde2ThemeMetaInfo *theme_info);
 GdkPixbuf *generate_gtk_theme_thumbnail      (Gde2ThemeInfo     *theme_info);
-GdkPixbuf *generate_marco_theme_thumbnail (Gde2ThemeInfo     *theme_info);
+GdkPixbuf *generate_finestra_theme_thumbnail (Gde2ThemeInfo     *theme_info);
 GdkPixbuf *generate_icon_theme_thumbnail     (Gde2ThemeIconInfo *theme_info);
 
 void generate_meta_theme_thumbnail_async     (Gde2ThemeMetaInfo *theme_info,
@@ -22,7 +22,7 @@ void generate_gtk_theme_thumbnail_async      (Gde2ThemeInfo     *theme_info,
                                               ThemeThumbnailFunc  func,
                                               gpointer            data,
                                               GDestroyNotify      destroy);
-void generate_marco_theme_thumbnail_async (Gde2ThemeInfo     *theme_info,
+void generate_finestra_theme_thumbnail_async (Gde2ThemeInfo     *theme_info,
                                               ThemeThumbnailFunc  func,
                                               gpointer            data,
                                               GDestroyNotify      destroy);

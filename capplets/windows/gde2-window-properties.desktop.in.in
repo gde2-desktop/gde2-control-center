@@ -7,5 +7,5 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=GTK;Settings;DesktopSettings;
-Keywords=gde2-control-center;GDE2;window;manager;properties;marco;preferences;
+Keywords=gde2-control-center;GDE2;window;manager;properties;finestra;preferences;
 OnlyShowIn=GDE2;

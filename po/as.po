@@ -2523,32 +2523,32 @@ msgid "To move a window, press-and-hold this key then grab the window:"
 msgstr "সংযোগক্ষেত্ৰ স্থানান্তৰ কৰোঁতে এই চাবি টিপি সংযোগক্ষেত্ৰৰ অৱস্থান পৰিবৰ্তন কৰক:"
 
 #: ../capplets/windows/gde2-window-properties.c:580
-#: ../libwindow-settings/marco-window-manager.c:394
+#: ../libwindow-settings/finestra-window-manager.c:394
 msgid "Roll up"
 msgstr "Roll up"
 
 #: ../capplets/windows/gde2-window-properties.c:581
-#: ../libwindow-settings/marco-window-manager.c:395
+#: ../libwindow-settings/finestra-window-manager.c:395
 msgid "Maximize"
 msgstr "সৰ্বোচ্চ আকাৰ প্ৰদান"
 
 #: ../capplets/windows/gde2-window-properties.c:582
-#: ../libwindow-settings/marco-window-manager.c:396
+#: ../libwindow-settings/finestra-window-manager.c:396
 msgid "Maximize Horizontally"
 msgstr "অনুভূমিক দিশায় সৰ্বোচ্চ মাপ নিৰ্ধাৰণ"
 
 #: ../capplets/windows/gde2-window-properties.c:583
-#: ../libwindow-settings/marco-window-manager.c:397
+#: ../libwindow-settings/finestra-window-manager.c:397
 msgid "Maximize Vertically"
 msgstr "উলম্ব দিশায় সৰ্বোচ্চ মাপ নিৰ্ধাৰণ"
 
 #: ../capplets/windows/gde2-window-properties.c:584
-#: ../libwindow-settings/marco-window-manager.c:398
+#: ../libwindow-settings/finestra-window-manager.c:398
 msgid "Minimize"
 msgstr "সৰু কৰক"
 
 #: ../capplets/windows/gde2-window-properties.c:585
-#: ../libwindow-settings/marco-window-manager.c:399
+#: ../libwindow-settings/finestra-window-manager.c:399
 msgid "None"
 msgstr "শূণ্য"
 

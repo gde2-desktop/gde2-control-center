@@ -216,9 +216,9 @@ theme_load_from_gsettings (AppearanceData *data)
   }
   theme->gtk_color_scheme = scheme;
 
-  theme->marco_theme_name = g_settings_get_string (data->marco_settings, MARCO_THEME_KEY);
-  if (theme->marco_theme_name == NULL)
-    theme->marco_theme_name = g_strdup ("Menta");
+  theme->finestra_theme_name = g_settings_get_string (data->finestra_settings, FINESTRA_THEME_KEY);
+  if (theme->finestra_theme_name == NULL)
+    theme->finestra_theme_name = g_strdup ("Menta");
 
   theme->icon_theme_name = g_settings_get_string (data->interface_settings, ICON_THEME_KEY);
   if (theme->icon_theme_name == NULL)
@@ -319,8 +319,8 @@ theme_is_equal (const Gde2ThemeMetaInfo *a, const Gde2ThemeMetaInfo *b)
       strcmp (a->icon_theme_name, b->icon_theme_name))
     return FALSE;
 
-  if (!(a->marco_theme_name && b->marco_theme_name) ||
-      strcmp (a->marco_theme_name, b->marco_theme_name))
+  if (!(a->finestra_theme_name && b->finestra_theme_name) ||
+      strcmp (a->finestra_theme_name, b->finestra_theme_name))
     return FALSE;
 
   if (!(a->cursor_theme_name && b->cursor_theme_name) ||
@@ -355,7 +355,7 @@ theme_set_custom_from_theme (const Gde2ThemeMetaInfo *info, AppearanceData *data
   if (info != NULL) {
     g_free (custom->gtk_theme_name);
     g_free (custom->icon_theme_name);
-    g_free (custom->marco_theme_name);
+    g_free (custom->finestra_theme_name);
     g_free (custom->gtk_color_scheme);
     g_free (custom->cursor_theme_name);
     g_free (custom->application_font);
@@ -365,7 +365,7 @@ theme_set_custom_from_theme (const Gde2ThemeMetaInfo *info, AppearanceData *data
     /* these settings are guaranteed to be non-NULL */
     custom->gtk_theme_name = g_strdup (info->gtk_theme_name);
     custom->icon_theme_name = g_strdup (info->icon_theme_name);
-    custom->marco_theme_name = g_strdup (info->marco_theme_name);
+    custom->finestra_theme_name = g_strdup (info->finestra_theme_name);
     custom->cursor_theme_name = g_strdup (info->cursor_theme_name);
     custom->cursor_size = info->cursor_size;
 
@@ -459,7 +459,7 @@ theme_message_area_response_cb (GtkWidget *w,
       }
 
       if (data->revert_windowtitle_font != NULL) {
-        g_settings_set_string (data->marco_settings, WINDOW_TITLE_FONT_KEY, data->revert_windowtitle_font);
+        g_settings_set_string (data->finestra_settings, WINDOW_TITLE_FONT_KEY, data->revert_windowtitle_font);
         g_free (data->revert_windowtitle_font);
         data->revert_windowtitle_font = NULL;
       }
@@ -515,7 +515,7 @@ theme_message_area_response_cb (GtkWidget *w,
       }
 
       if (theme->windowtitle_font) {
-        tmpfont = g_settings_get_string (data->marco_settings, WINDOW_TITLE_FONT_KEY);
+        tmpfont = g_settings_get_string (data->finestra_settings, WINDOW_TITLE_FONT_KEY);
         if (tmpfont != NULL) {
           g_free (data->revert_windowtitle_font);
 
@@ -525,7 +525,7 @@ theme_message_area_response_cb (GtkWidget *w,
           } else
             data->revert_windowtitle_font = tmpfont;
         }
-        g_settings_set_string (data->marco_settings, WINDOW_TITLE_FONT_KEY, theme->windowtitle_font);
+        g_settings_set_string (data->finestra_settings, WINDOW_TITLE_FONT_KEY, theme->windowtitle_font);
       }
 
       if (theme->monospace_font) {
@@ -610,7 +610,7 @@ theme_message_area_update (AppearanceData *data)
     }
 
     if (!show_apply_font && theme->windowtitle_font) {
-      font = g_settings_get_string (data->marco_settings, WINDOW_TITLE_FONT_KEY);
+      font = g_settings_get_string (data->finestra_settings, WINDOW_TITLE_FONT_KEY);
       show_apply_font =
           (!font || strcmp (theme->application_font, font) != 0);
       g_free (font);
@@ -1136,7 +1136,7 @@ void themes_init(AppearanceData* data)
   g_free (url);
 
   /* listen to gsettings changes, too */
-  g_signal_connect (data->marco_settings, "changed::" MARCO_THEME_KEY, G_CALLBACK (theme_gsettings_changed), data);
+  g_signal_connect (data->finestra_settings, "changed::" FINESTRA_THEME_KEY, G_CALLBACK (theme_gsettings_changed), data);
   g_signal_connect (data->mouse_settings, "changed::" CURSOR_THEME_KEY, G_CALLBACK (theme_gsettings_changed), data);
 #ifdef HAVE_XCURSOR
   g_signal_connect (data->mouse_settings, "changed::" CURSOR_SIZE_KEY, G_CALLBACK (theme_gsettings_changed), data);
@@ -1148,7 +1148,7 @@ void themes_init(AppearanceData* data)
   if (data->caja_settings)
     g_signal_connect (data->caja_settings, "changed::" DESKTOP_FONT_KEY, G_CALLBACK (background_or_font_changed), data);
 
-  g_signal_connect (data->marco_settings, "changed::" WINDOW_TITLE_FONT_KEY, G_CALLBACK (background_or_font_changed), data);
+  g_signal_connect (data->finestra_settings, "changed::" WINDOW_TITLE_FONT_KEY, G_CALLBACK (background_or_font_changed), data);
   g_signal_connect (data->interface_settings, "changed::" MONOSPACE_FONT_KEY, G_CALLBACK (background_or_font_changed), data);
 
   settings = gtk_settings_get_default ();

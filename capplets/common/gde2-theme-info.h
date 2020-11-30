@@ -43,7 +43,7 @@ typedef enum {
 } Gde2ThemeChangeType;
 
 typedef enum {
-	GDE2_THEME_MARCO = 1 << 0,
+	GDE2_THEME_FINESTRA = 1 << 0,
 	GDE2_THEME_GTK_2 = 1 << 1,
 	GDE2_THEME_GTK_2_KEYBINDING = 1 << 2
 } Gde2ThemeElement;
@@ -72,7 +72,7 @@ struct _Gde2ThemeInfo
 
 	guint has_gtk : 1;
 	guint has_keybinding : 1;
-	guint has_marco : 1;
+	guint has_finestra : 1;
 };
 
 typedef struct _Gde2ThemeCursorInfo Gde2ThemeCursorInfo;
@@ -102,7 +102,7 @@ struct _Gde2ThemeMetaInfo {
 
 	gchar* gtk_theme_name;
 	gchar* gtk_color_scheme;
-	gchar* marco_theme_name;
+	gchar* finestra_theme_name;
 	gchar* icon_theme_name;
 	gchar* notification_theme_name;
 	gchar* sound_theme_name;
@@ -142,7 +142,7 @@ enum {
 };
 
 
-/* GTK/Marco/keybinding Themes */
+/* GTK/Finestra/keybinding Themes */
 Gde2ThemeInfo     *gde2_theme_info_new                   (void);
 void                gde2_theme_info_free                  (Gde2ThemeInfo     *theme_info);
 Gde2ThemeInfo     *gde2_theme_info_find                  (const gchar        *theme_name);

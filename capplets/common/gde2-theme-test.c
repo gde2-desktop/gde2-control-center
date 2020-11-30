@@ -47,14 +47,14 @@ main (int argc, char *argv[])
     }
   g_list_free (themes);
 
-  themes = gde2_theme_info_find_by_type (GDE2_THEME_MARCO);
+  themes = gde2_theme_info_find_by_type (GDE2_THEME_FINESTRA);
   if (themes == NULL)
     {
-      g_print ("No marco themes were found.\n");
+      g_print ("No finestra themes were found.\n");
     }
   else
     {
-      g_print ("%d marco themes were found:\n", g_list_length (themes));
+      g_print ("%d finestra themes were found:\n", g_list_length (themes));
       for (list = themes; list; list = list->next)
 	{
 	  Gde2ThemeInfo *theme_info;

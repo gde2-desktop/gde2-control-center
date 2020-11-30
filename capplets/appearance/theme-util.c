@@ -95,7 +95,7 @@ gboolean theme_delete (const gchar *name, ThemeType type)
 
     case THEME_TYPE_WINDOW:
       theme = (Gde2ThemeCommonInfo *) gde2_theme_info_find (name);
-      theme_dir = g_build_filename (theme->path, "marco-1", NULL);
+      theme_dir = g_build_filename (theme->path, "finestra-1", NULL);
       break;
 
     case THEME_TYPE_META:

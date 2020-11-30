@@ -94,13 +94,13 @@ metacity_theme_apply(const gchar *theme, const gchar *font)
 }
 
 static void
-marco_theme_changed(GSettings *settings, gchar *key, AppearanceData* data)
+finestra_theme_changed(GSettings *settings, gchar *key, AppearanceData* data)
 {
     gchar *theme = NULL;
     gchar *font = NULL;
     if (metacity_is_running ())
     {
-        theme = g_settings_get_string (settings, MARCO_THEME_KEY);
+        theme = g_settings_get_string (settings, FINESTRA_THEME_KEY);
         font = g_settings_get_string (settings, WINDOW_TITLE_FONT_KEY);
         metacity_theme_apply (theme, font);
         g_free (theme);
@@ -114,13 +114,13 @@ support_init(AppearanceData* data)
     /* needed for wm_common_get_current_window_manager() */
     wm_common_update_window ();
     /* GSettings signals */
-    g_signal_connect (data->marco_settings, "changed::" MARCO_THEME_KEY,
-                      G_CALLBACK (marco_theme_changed), data);
-    g_signal_connect (data->marco_settings, "changed::" WINDOW_TITLE_FONT_KEY,
-                      G_CALLBACK (marco_theme_changed), data);
+    g_signal_connect (data->finestra_settings, "changed::" FINESTRA_THEME_KEY,
+                      G_CALLBACK (finestra_theme_changed), data);
+    g_signal_connect (data->finestra_settings, "changed::" WINDOW_TITLE_FONT_KEY,
+                      G_CALLBACK (finestra_theme_changed), data);
     /* apply theme at start */
     if (metacity_is_running ())
-        marco_theme_changed (data->marco_settings, NULL, data);
+        finestra_theme_changed (data->finestra_settings, NULL, data);
 }
 
 void
