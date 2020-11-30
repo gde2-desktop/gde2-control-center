@@ -1,4 +1,4 @@
-AC_INIT([gde2-control-center], [1.16.1], [http://www.gde2-desktop.org/])
+AC_INIT([gde2-control-center], [1.1.0], [http://www.gde2-desktop.org/])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([shell])
@@ -78,7 +78,7 @@ AC_MSG_RESULT([$with_gtk])
 case "$with_gtk" in
   2.0) GTK_API_VERSION=2.0
        GTK_REQUIRED=2.24.0
-       GDE2_DESKTOP_REQUIRED=1.15.1
+       GDE2_DESKTOP_REQUIRED=1.1.0
        LIBCANBERRA_API_VERSION=
        LIBUNIQUE_API_VERSION=1.0
        ENGINES_FOLDER="engines"
@@ -86,7 +86,7 @@ case "$with_gtk" in
        ;;
   3.0) GTK_API_VERSION=3.0
        GTK_REQUIRED=3.0.0
-       GDE2_DESKTOP_REQUIRED=1.15.1
+       GDE2_DESKTOP_REQUIRED=1.1.0
        LIBCANBERRA_API_VERSION=3
        LIBUNIQUE_API_VERSION=3.0
        ENGINES_FOLDER="theming-engines"
